@@ -148,6 +148,9 @@
       var last_scroll_progress = last_scroll_top / (rows.getLength() * this.options.item_height) * 100 || 0;
       return Math.floor(last_scroll_progress * this.getRowsAmount() / 100);
     }
+    self.scrollDown = function(count) {
+        self.scroll_elem.scrollTop += count * this.options.item_height;
+    }
   }
 
   Clusterize.prototype = {
