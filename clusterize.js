@@ -68,9 +68,7 @@
       self.content_elem.setAttribute('tabindex', 0);
 
     // private parameters
-    var rows = isArray(data.rows)
-        ? data.rows
-        : self.fetchMarkup(),
+    var rows = data.rows,
       cache = {data: ''},
       scroll_top = self.scroll_elem.scrollTop;
 
@@ -163,14 +161,6 @@
 
   Clusterize.prototype = {
     constructor: Clusterize,
-    // fetch existing markup
-    fetchMarkup: function() {
-      var rows = [], rows_nodes = this.getChildNodes(this.content_elem);
-      while (rows_nodes.length) {
-        rows.push(rows_nodes.shift().outerHTML);
-      }
-      return rows;
-    },
     // get tag name, content tag name, tag height, calc cluster height
     exploreEnvironment: function(rows) {
       var opts = this.options;
