@@ -140,6 +140,14 @@
     self.getScrollProgress = function() {
       return this.options.scroll_top / (rows.getLength() * this.options.item_height) * 100 || 0;
     }
+    self.getFirstVisibleIndex = function() {
+      return Math.floor(this.getScrollProgress() * this.getRowsAmount() / 100);
+    }
+    self.getLastVisibleIndex = function() {
+      var last_scroll_top = this.options.scroll_top + self.scroll_elem.offsetHeight;
+      var last_scroll_progress = last_scroll_top / (rows.getLength() * this.options.item_height) * 100 || 0;
+      return Math.floor(last_scroll_progress * this.getRowsAmount() / 100);
+    }
   }
 
   Clusterize.prototype = {
