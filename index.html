@@ -24,11 +24,20 @@
 <script type="text/javascript">
 
 var data = [];
-for (var i = 0; i < 10000; i++)
-    data.push('<tr><td>' + i + '</td></tr>');
+data.getLength = function()
+{
+    return 10000;
+}
+data.getIndex = function(i)
+{
+    if (i < this.getLength())
+       return '<tr><td>' + i + '</td></tr>';
+}
 var clusterize = new Clusterize({
   rows: data,
   scrollId: 'scrollArea',
-  contentId: 'contentArea'
+  contentId: 'contentArea',
+  tag: 'tr',
+  content_tag: 'td'
 });
 </script>

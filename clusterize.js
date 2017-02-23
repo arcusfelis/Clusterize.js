@@ -124,7 +124,7 @@
         : [];
       var scroll_top = self.scroll_elem.scrollTop;
       // fixes #39
-      if(rows.length * self.options.item_height < scroll_top) {
+      if(rows.getLength() * self.options.item_height < scroll_top) {
         self.scroll_elem.scrollTop = 0;
         last_cluster = 0;
       }
@@ -135,10 +135,10 @@
       self.update([]);
     }
     self.getRowsAmount = function() {
-      return rows.length;
+      return rows.getLength();
     }
     self.getScrollProgress = function() {
-      return this.options.scroll_top / (rows.length * this.options.item_height) * 100 || 0;
+      return this.options.scroll_top / (rows.getLength() * this.options.item_height) * 100 || 0;
     }
   }
 
@@ -148,17 +148,14 @@
     exploreEnvironment: function(rows) {
       var opts = this.options;
       opts.content_tag = this.content_elem.tagName.toLowerCase();
-      if( ! rows.length) return;
-      if(ie && ie <= 9 && ! opts.tag) opts.tag = rows[0].match(/<([^>\s/]*)/)[1].toLowerCase();
-      if(this.content_elem.children.length <= 1) this.html(rows[0] + rows[0] + rows[0]);
-      if( ! opts.tag) opts.tag = this.content_elem.children[0].tagName.toLowerCase();
+      if( ! rows.getLength()) return;
       this.getRowsHeight(rows);
     },
     getRowsHeight: function(rows) {
       var opts = this.options,
         prev_item_height = opts.item_height;
       opts.cluster_height = 0
-      if( ! rows.length) return;
+      if( ! rows.getLength()) return;
       var nodes = this.content_elem.children;
       opts.item_height = nodes[Math.floor(nodes.length / 2)].offsetHeight;
       // consider table's border-spacing
@@ -191,11 +188,14 @@
     // generate cluster for current scroll position
     generate: function (rows, cluster_num) {
       var opts = this.options,
-        rows_len = rows.length;
+        rows_len = rows.getLength();
       if (rows_len < opts.rows_in_block) {
+        var actual_rows = [];
+        for (var i = 0; i < rows_len; i++)
+            actual_rows[i] = rows.getIndex(i);
         return {
           rows_above: 0,
-          rows: rows_len ? rows : this.generateEmptyRow()
+          rows: rows_len ? actual_rows : this.generateEmptyRow()
         }
       }
       if( ! opts.cluster_height) {
@@ -214,7 +214,7 @@
         rows_above++;
       }
       for (var i = items_start; i < items_end; i++) {
-        rows[i] && this_cluster_rows.push(rows[i]);
+        rows.getIndex(i) && this_cluster_rows.push(rows.getIndex(i));
       }
       bottom_space > 0 && this_cluster_rows.push(this.renderExtraTag('bottom-space', bottom_space));
       return {
