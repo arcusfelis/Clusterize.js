@@ -140,23 +140,6 @@
     self.getScrollProgress = function() {
       return this.options.scroll_top / (rows.length * this.options.item_height) * 100 || 0;
     }
-
-    var add = function(where, _new_rows) {
-      var new_rows = isArray(_new_rows)
-        ? _new_rows
-        : [];
-      if( ! new_rows.length) return;
-      rows = where == 'append'
-        ? rows.concat(new_rows)
-        : new_rows.concat(rows);
-      self.insertToDOM(rows, cache);
-    }
-    self.append = function(rows) {
-      add('append', rows);
-    }
-    self.prepend = function(rows) {
-      add('prepend', rows);
-    }
   }
 
   Clusterize.prototype = {
