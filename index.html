@@ -1,0 +1,34 @@
+<script src="clusterize.js"></script>
+<link rel="stylesheet" href="clusterize.css" />
+
+
+<div class="clusterize">
+  <table>
+    <thead>
+      <tr>
+        <th>Headers</th>
+      </tr>
+    </thead>
+  </table>
+  <div id="scrollArea" class="clusterize-scroll">
+    <table>
+      <tbody id="contentArea" class="clusterize-content">
+        <tr class="clusterize-no-data">
+          <td>Loading data…</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+var data = [];
+for (var i = 0; i < 10000; i++)
+    data.push('<tr><td>' + i + '</td></tr>');
+var clusterize = new Clusterize({
+  rows: data,
+  scrollId: 'scrollArea',
+  contentId: 'contentArea'
+});
+</script>
