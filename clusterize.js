@@ -118,16 +118,14 @@
     self.refresh = function() {
       self.getRowsHeight(rows) && self.update(rows);
     }
-    self.update = function(new_rows) {
+    self.update = function(new_rows, extra_scroll) {
+      if (!scroll_down)
+          scroll_down = 0;
       rows = isArray(new_rows)
         ? new_rows
         : [];
       var scroll_top = self.scroll_elem.scrollTop;
-      // fixes #39
-      if(rows.getLength() * self.options.item_height < scroll_top) {
-        self.scroll_elem.scrollTop = 0;
-        last_cluster = 0;
-      }
+      scroll_top += extra_scroll * self.options.item_height;
       self.insertToDOM(rows, cache);
       self.scroll_elem.scrollTop = scroll_top;
     }
